@@ -8,8 +8,9 @@ using UnityEngine.AI;
 public class CharacterMotor : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private Rigidbody rg;
+    public Rigidbody rg { get; private set; }
 
+    public Collider[] colliders;
     public Vector3 TargetPosition { get; private set; }
     public bool ShouldLookTargetPosition = true;
     private float rotationSpeed = 9;
@@ -31,6 +32,24 @@ public class CharacterMotor : MonoBehaviour
         TargetPosition = position;
     }
 
+    #region Colliders
+    public void DisablePhysicColliders()
+    {
+        foreach(Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    public void EnablePhysicColliders()
+    {
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+        }
+    }
+    #endregion 
+
     #region Agent
     private void EnableAgent()
     {
@@ -45,6 +64,26 @@ public class CharacterMotor : MonoBehaviour
         if (agent.enabled)
         {
             agent.enabled = false;
+        }
+    }
+    #endregion
+
+    #region Rigidbody
+    public void EnableRigidbody()
+    {
+        if (rg.isKinematic)
+        {
+            rg.isKinematic = false;
+            rg.useGravity = true;
+        }
+    }
+
+    public void DisableRigidbody()
+    {
+        if (!rg.isKinematic)
+        {
+            rg.isKinematic = true;
+            rg.velocity = Vector3.zero;
         }
     }
     #endregion
@@ -76,7 +115,7 @@ public class CharacterMotor : MonoBehaviour
         transform.eulerAngles = Vector3.up * newRotation.eulerAngles.y;
     }
 
-    private void LookTargetPositionInstant()
+    public void LookTargetPositionInstant()
     {
         if (!ShouldLookTargetPosition) return;
         if (TargetPosition - transform.position == Vector3.zero) return;

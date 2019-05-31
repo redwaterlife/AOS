@@ -6,6 +6,7 @@ public class LocalController : MonoBehaviour
 {
     private Champion champion;
     private CameraFollow cam;
+    public DynamicCursor cursor;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class LocalController : MonoBehaviour
             champion.UpdateTargetPosition(targetPosition);
 
             champion.Move();
+
+            cursor.MovePosition(targetPosition);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -38,5 +41,6 @@ public class LocalController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Q)) champion.UseQ();
+        if (Input.GetKeyDown(KeyCode.E)) champion.UseE();
     }
 }

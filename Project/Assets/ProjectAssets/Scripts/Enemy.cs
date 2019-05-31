@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
 
     NavMeshAgent agent;
@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     bool c = false;
     bool hc = false;
 
-    void Start()
+    protected override void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         pos = transform.position;

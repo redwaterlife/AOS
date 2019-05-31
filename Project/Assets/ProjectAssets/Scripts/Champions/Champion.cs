@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Champion : Character
 {
+    [HideInInspector]
     public Skill Q;
+    [HideInInspector]
     public Skill W;
+    [HideInInspector]
     public Skill E;
+    [HideInInspector]
     public Skill R;
 
     protected override void Awake()
@@ -19,25 +23,28 @@ public class Champion : Character
         base.Start();
     }
 
-
     public virtual void UseQ()
     {
-        Q.StartSkill();
+        if (Status != eCharacterStatus.Acting && Status != eCharacterStatus.Damaged)
+            Q.StartSkill();
     }
 
     public virtual void UseW()
     {
-        W.StartSkill();
+        if (Status != eCharacterStatus.Acting && Status != eCharacterStatus.Damaged)
+            W.StartSkill();
     }
 
     public virtual void UseE()
     {
-        E.StartSkill();
+        if (Status != eCharacterStatus.Acting && Status != eCharacterStatus.Damaged)
+            E.StartSkill();
     }
 
     public virtual void UseR()
     {
-        R.StartSkill();
+        if (Status != eCharacterStatus.Acting && Status != eCharacterStatus.Damaged)
+            R.StartSkill();
     }
 
     public virtual void StartSkill()
@@ -50,6 +57,7 @@ public class Champion : Character
     {
         // 중요
         if (Status == eCharacterStatus.Acting) Status = eCharacterStatus.Idle;
-        motor.Continue();
+        motor.EnablePhysicColliders();
+        motor.EnableRigidbody();
     }
 }

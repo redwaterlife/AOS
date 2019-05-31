@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     public static CameraFollow inst;
 
-    private Camera cam;
+    public Camera cam { get; private set; }
 
     public Transform target = null;
     public float dist = 5f;
@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
     public float minDist = 5;
 
     private Vector3 targetPosition;
-    public LayerMask layerMask;
+    public LayerMask groundLayerMask;
 
     private void Awake()
     {
@@ -52,7 +52,7 @@ public class CameraFollow : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 100, layerMask))
+        if (Physics.Raycast(ray, out hit, 100, groundLayerMask))
         {
             targetPosition = hit.point;
         }

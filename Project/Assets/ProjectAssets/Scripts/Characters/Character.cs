@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
 {
     public eCharacterStatus Status { get; protected set; }
 
-    protected CharacterMotor motor;
+    public CharacterMotor motor { get; private set; }
     protected CharacterStats stats;
 
     public Vector3 TargetPosition { get; private set; }
